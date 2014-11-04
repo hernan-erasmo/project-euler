@@ -13,5 +13,23 @@ def fib(n):
 	return int(numerador / denominador)
 
 def es_primo(n):
-	"""Utiliza el algoritmo AKS para determinar si un numero es primo o no"""
+	"""Utiliza el test AKS para determinar si un numero es primo o no"""
+	if n <= 1:			#Primer paso del AKS
+		return False
+	if es_potencia(n):	#Segundo paso del AKS
+		return False
+	return True
+
+def es_potencia(n):
+	"""Verifica si n puede expresarse como base**exp con base y exp enteros > a 1"""
+	pot = 0
+	tope = int(math.sqrt(n)) + 1
+
+	for base in range(2,tope + 1):
+		for exp in range(2,tope + 1):
+			pot = base**exp
+			if n == pot:
+				return True
+			if pot > n:
+				break
 	return False
