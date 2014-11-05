@@ -15,10 +15,24 @@ def fib(n):
 
 def es_primo(n):
 	"""Utiliza el test AKS para determinar si un numero es primo o no"""
-	if n <= 1:			#Primer paso del AKS
+	if n <= 1:			
 		return False
-	if es_potencia(n):	#Segundo paso del AKS
+	
+	if es_potencia(n):	#Primer paso del AKS
 		return False
+    
+    r = 1				#Segundo paso del AKS (busco el r mas chico)
+    tope = math.log(n,2)
+    while orden_multiplicativo(n,r) < tope:
+    	r += 1
+
+    for a in range(1,r+1):
+    	if gdc(a,n) in range(2,n):	#Tercer paso del AKS, 1 < gdc(a,n) < n, para a <= r
+    		return False
+
+    if n <= r:		#Cuarto paso del AKS:
+    	return True
+
 	return True
 
 def es_potencia(n):
@@ -46,14 +60,14 @@ def gdc(a,b):
 	else:
 		return gdc(b, a % b)
 
-def orden_multiplicativo(a,n):
-	"""Calcula el orden multiplicativo de a modulo n.
-	   Si gdc(a,n) != 1, no se puede calcular el orden multiplicativo.
+def orden_multiplicativo(n,r):
+	"""Calcula el orden multiplicativo de n modulo r.
+	   Si gdc(n,r) != 1, no se puede calcular el orden multiplicativo.
 	   Los valores a, n y k se tomaron de la definicion de wikipedia"""
-	if gdc(a,n) != 1: return -1
+	if gdc(n,r) != 1: return -1
 
 	contador = itertools.count(1)
 	while True:
 		k = contador.next()
-		if son_congruentes_modulo(a**k, 1, n):
+		if son_congruentes_modulo(n**k, 1, r):
 			return k
