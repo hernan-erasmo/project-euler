@@ -1,4 +1,5 @@
 import math
+import itertools
 
 def n_esmultiplode_m(n,m):
 	return n % m == 0
@@ -33,3 +34,26 @@ def es_potencia(n):
 			if pot > n:
 				break
 	return False
+
+def son_congruentes_modulo(a,b,n):
+	"""Verifica si a y b son congruentes modulo n"""
+	return n_esmultiplode_m(a-b,n)
+
+def gdc(a,b):
+	"""Calcula el maximo comun divisor entre a y b"""
+	if b == 0:
+		return a
+	else:
+		return gdc(b, a % b)
+
+def orden_multiplicativo(a,n):
+	"""Calcula el orden multiplicativo de a modulo n.
+	   Si gdc(a,n) != 1, no se puede calcular el orden multiplicativo.
+	   Los valores a, n y k se tomaron de la definicion de wikipedia"""
+	if gdc(a,n) != 1: return -1
+
+	contador = itertools.count(1)
+	while True:
+		k = contador.next()
+		if son_congruentes_modulo(a**k, 1, n):
+			return k
