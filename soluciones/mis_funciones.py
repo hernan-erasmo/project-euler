@@ -83,3 +83,7 @@ def buscar_factor_impar(n):
 		return n
 	else:
 		return buscar_factor_impar(n / 2)
+
+def es_palindromo(n):
+	"""Recibe un numero e indica si se lee igual al derecho que al reves"""
+	return str(abs(n)) == str(abs(n))[::-1]		#http://stackoverflow.com/q/931092/1603080

@@ -39,5 +39,11 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(mf.buscar_factor_impar(49),49)
 		self.assertEquals(mf.buscar_factor_impar(199543),199543)
 
+	def test_es_palindromo(self):
+		self.assertTrue(mf.es_palindromo(1498941))
+		self.assertTrue(mf.es_palindromo(2))
+		self.assertTrue(mf.es_palindromo(-29892))
+		self.assertFalse(mf.es_palindromo(9283539))
+
 if __name__ == '__main__':
 	unittest.main()
