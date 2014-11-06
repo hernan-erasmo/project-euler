@@ -4,7 +4,7 @@ import mis_funciones as mf
 class TestMisFunciones(unittest.TestCase):
 	def test_es_primo(self):
 		self.assertFalse(mf.es_primo(256))
-		self.assertTrue(mf.es_primo(255))
+		self.assertFalse(mf.es_primo(255))
 
 	def test_es_potencia(self):
 		self.assertTrue(mf.es_potencia(8))
@@ -26,6 +26,10 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(mf.orden_multiplicativo(4,7), 3)
 		self.assertEquals(mf.orden_multiplicativo(900,59), 29)
 		self.assertEquals(mf.orden_multiplicativo(284,1611), 534)
+
+	def test_euler_phi(self):
+		self.assertEquals(mf.euler_phi(9),6)
+		self.assertEquals(mf.euler_phi(3496),1584)
 
 if __name__ == '__main__':
 	unittest.main()

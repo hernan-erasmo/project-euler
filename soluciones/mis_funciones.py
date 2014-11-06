@@ -7,6 +7,15 @@ def n_esmultiplode_m(n,m):
 def phi():
 	return (1 + math.sqrt(5))/2
 
+def euler_phi(n):
+	"""Retorna la cantidad de enteros k, tales que 1 < k <= n, y gdc(k,n) = 1"""
+	cant = 0
+	for k in range(1,n+1):
+		if gdc(k,n) == 1:
+			cant += 1
+
+	return cant
+
 def fib(n):
 	"""Utiliza la formula de Binet para encontrar el n-esimo numero de la sucesion de Fibonacci"""
 	numerador = phi()**n - ((-1)*(phi()))**(n*(-1))
@@ -15,23 +24,23 @@ def fib(n):
 
 def es_primo(n):
 	"""Utiliza el test AKS para determinar si un numero es primo o no"""
-	if n <= 1:			
+	if n <= 1:
 		return False
 	
 	if es_potencia(n):	#Primer paso del AKS
 		return False
     
-    r = 1				#Segundo paso del AKS (busco el r mas chico)
-    tope = math.log(n,2)
-    while orden_multiplicativo(n,r) < tope:
-    	r += 1
+	r = 1	#Segundo paso del AKS (busco el r mas chico)
+	tope = math.log(n,2)
+	while orden_multiplicativo(n,r) < tope:
+		r += 1
 
-    for a in range(1,r+1):
-    	if gdc(a,n) in range(2,n):	#Tercer paso del AKS, 1 < gdc(a,n) < n, para a <= r
-    		return False
+	for a in range(1,r+1):
+		if gdc(a,n) in range(2,n):	#Tercer paso del AKS, 1 < gdc(a,n) < n, para a <= r
+			return False
 
-    if n <= r:		#Cuarto paso del AKS:
-    	return True
+	if n <= r:		#Cuarto paso del AKS:
+		return True
 
 	return True
 
