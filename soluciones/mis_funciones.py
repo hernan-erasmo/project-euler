@@ -1,3 +1,11 @@
+"""
+Funciones auxiliares para resolver los problemas.
+
+Algunas variables en este modulo pueden carecer de expresividad. He tratado
+de ser expresivo cuando pude, sin embargo creo que en algunos algoritmos es
+mejor utilizar las mismas letras que utiliza la wikipedia (o la fuente original,
+en caso de que la aclare) para describir al algoritmo en cuestion"""
+
 import math
 import itertools
 
@@ -23,24 +31,12 @@ def fib(n):
 	return int(numerador / denominador)
 
 def es_primo(n):
-	"""Utiliza el test AKS para determinar si un numero es primo o no"""
-	if n <= 1:
+	if n % 2 == 0:
 		return False
-	
-	if es_potencia(n):	#Primer paso del AKS
-		return False
-    
-	r = 1	#Segundo paso del AKS (busco el r mas chico)
-	tope = math.log(n,2)
-	while orden_multiplicativo(n,r) < tope:
-		r += 1
 
-	for a in range(1,r+1):
-		if gdc(a,n) in range(2,n):	#Tercer paso del AKS, 1 < gdc(a,n) < n, para a <= r
+	for i in range(3, int(math.floor(math.sqrt(n))) + 1):
+		if n % i == 0:
 			return False
-
-	if n <= r:		#Cuarto paso del AKS:
-		return True
 
 	return True
 
@@ -80,3 +76,10 @@ def orden_multiplicativo(n,r):
 		k = contador.next()
 		if son_congruentes_modulo(n**k, 1, r):
 			return k
+
+def buscar_factor_impar(n):
+	"""Retorna el factor impar mas alto de n"""
+	if n % 2 != 0:
+		return n
+	else:
+		return buscar_factor_impar(n / 2)
