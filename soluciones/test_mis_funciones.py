@@ -5,6 +5,7 @@ class TestMisFunciones(unittest.TestCase):
 	def test_es_primo(self):
 		self.assertFalse(mf.es_primo(256))
 		self.assertFalse(mf.es_primo(50))
+		self.assertTrue(mf.es_primo(2))
 		self.assertTrue(mf.es_primo(7))
 		self.assertTrue(mf.es_primo(3950827))
 

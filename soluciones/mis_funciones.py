@@ -31,6 +31,9 @@ def fib(n):
 	return int(numerador / denominador)
 
 def es_primo(n):
+	if n == 2:
+		return True
+
 	if n % 2 == 0:
 		return False
 
