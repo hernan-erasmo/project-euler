@@ -1,6 +1,3 @@
-"""Esta solucion, por mas que sea medio bruta, termina en solo 6.2 segundos.
-   Si tengo tiempo implemento alguna mas copada (aunque 6.2 s. esta bastante bien!)"""
-
 def main():
 	i = 1
 	contador_primos = 0	
