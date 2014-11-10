@@ -46,5 +46,10 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertTrue(mf.es_palindromo(-29892))
 		self.assertFalse(mf.es_palindromo(9283539))
 
+	def test_factor_pairs(self):
+		self.assertEquals(mf.factor_pairs(18),[(1,18),(2,9),(3,6)])
+		self.assertEquals(mf.factor_pairs(-5),[])
+		self.assertEquals(mf.factor_pairs(10111),[(1,10111)])
+
 if __name__ == '__main__':
 	unittest.main()

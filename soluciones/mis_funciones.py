@@ -90,3 +90,7 @@ def buscar_factor_impar(n):
 def es_palindromo(n):
 	"""Recibe un numero e indica si se lee igual al derecho que al reves"""
 	return str(abs(n)) == str(abs(n))[::-1]		#http://stackoverflow.com/q/931092/1603080
+
+def factor_pairs(n):
+	"""Retorna una lista de pares de factores del nro n, sin repetidos"""
+	return [(x,n/x) for x in xrange(1,n+1) if (n%x == 0) and (x < n/x)]
