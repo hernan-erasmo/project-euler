@@ -51,5 +51,9 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(mf.factor_pairs(-5),[])
 		self.assertEquals(mf.factor_pairs(10111),[(1,10111)])
 
+	def test_dickson_triples(self):
+		self.assertEquals(mf.dickson_triples(-4), [])
+		self.assertEquals(mf.dickson_triples(6), [(7,24,25), (8,15,17), (9,12,15)])
+
 if __name__ == '__main__':
 	unittest.main()

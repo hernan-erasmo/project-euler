@@ -94,3 +94,19 @@ def es_palindromo(n):
 def factor_pairs(n):
 	"""Retorna una lista de pares de factores del nro n, sin repetidos"""
 	return [(x,n/x) for x in xrange(1,n+1) if (n%x == 0) and (x < n/x)]
+
+def dickson_triples(r):	#http://en.wikipedia.org/wiki/Formulas_for_generating_Pythagorean_triples#Dickson.27s_method
+	"""Genera una terna pitagorica a partir del nro r, utilizando el metodo de Dickson"""
+	if (r < 0) or (r % 2 != 0):
+		return []
+
+	triples = []
+	for p in factor_pairs((r**2)/2):
+		s = p[0]
+		t = p[1]
+		x = r + s
+		y = r + t
+		z = r + s + t
+		triples.append((x,y,z))
+
+	return triples
