@@ -1,4 +1,55 @@
+max_prod = 0
+max_list = []
+
+def resetear_variables():
+	global max_prod
+	global max_list
+	max_prod = 0
+	max_list = []
+
+def rotar(b):
+	d = deque()
+	resultado = []
+	for index, lista in enumerate(b):
+		d.clear()
+		d.extend(lista)
+		d.rotate(index*(-1))	#Rotamos hacia la izquierda
+		resultado.append(list(d))
+
+	return resultado
+
+def busqueda_lineal(m):
+	global max_prod
+	global max_list
+
+	resetear_variables()
+	for fila, pivote in itertools.product(range(20),range(17)):
+		f = m[fila]
+		prod = functools.reduce(operator.mul, f[pivote:pivote+4])
+		if prod > max_prod:
+			max_prod = prod
+			max_list = f[pivote:pivote+4]
+
+def busqueda_diagonal(m):
+	global max_prod
+	global max_list
+
+	resetear_variables()
+	for filas in range(17):
+		bloque = m[filas:filas+4]	#Tomamos de a 4 filas
+		bloque_rotado = rotar(bloque)	#Alineamos verticalmente los elementos en diagonal
+		diags = map(list, zip(*bloque_rotado))	#Los agrupamos en listas, cada una con los elementos en diagonal
+
+		for diagonal in diags:
+			prod = functools.reduce(operator.mul, diagonal)
+			if prod > max_prod:
+				max_prod = prod
+				max_list = diagonal
+
 def main():
+	global max_prod
+	global max_list
+
 	s = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -18,46 +69,34 @@ def main():
 04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48""".replace('\n', ' ')
-	matriz = map(int, s.split(' '))
-	max_prod = 0
+01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
+	matriz = []
+	matriz_invertida = []
+	
+	for lista in s.split('\n'):
+		aux = lista.split(' ')
+		matriz.append(map(int, aux))
+		aux.reverse()
+		matriz_invertida.append(map(int, aux))
 
-	#Invierto el string que representa la matriz y lo recorro de la misma manera que para calcular las
-	#diagonales en sentido izq->der, pero con esta inversion va a calcular der->izq
-	matriz_invertida = map(int, s.split(' ')[::-1])
-	for i, j in itertools.product(range(17), range(17)):
-		prod = functools.reduce(operator.mul, [matriz[x] for x in range(j+20*i,81+20*i,21)], 1)
-		if prod > max_prod: 
-			max_prod = prod
-			print max_prod, " encontrado diagonalmente de der a izq comenzando en (i,j):", (i,j)
+	#busco horizontalmente
+	busqueda_lineal(matriz)
+	print "Busqueda horizontal: " + str(max_prod), max_list
 
-	#Recorro por diagonal izq->der
-	for i, j in itertools.product(range(17), range(17)):
-		prod = functools.reduce(operator.mul, [matriz[x] for x in range(j+20*i,81+20*i,21)], 1)
-			#81 es el bloque de 4 filas y 20 columnas (+ 1) donde esta encerrada la diagonal
-			#21 es la cantidad que hay que sumar para encontrar el proximo valor en diagnoal
-		if prod > max_prod: 
-			max_prod = prod
-			print max_prod, " encontrado diagonalmente de izq a der comenzando en (i,j):", (i,j)
+	#busco verticalmente
+	matriz_transpuesta = map(list, zip(*matriz))
+	busqueda_lineal(matriz_transpuesta)
+	print "Busqueda vertical: " + str(max_prod), max_list
 
-	#Recorro por fila
-	for i, j in itertools.product(range(20), range(17)):
-		prod = functools.reduce(operator.mul, [x for x in matriz[i*19+j+i : i*19+j+i+4]], 1)
-		if prod > max_prod: 
-			max_prod = prod
-			print max_prod, " encontrado horizontal comenzando en (i,j):", (i,j)
+	busqueda_diagonal(matriz)
+	print "Busqueda diagonal(izq->der): " + str(max_prod), max_list
 
-	#Recorro por columna
-	for i, j in itertools.product(range(17), range(20)):
-		prod = functools.reduce(operator.mul, [matriz[x] for x in range(j+20*i,80+20*i,20)], 1)
-		if prod > max_prod: 
-			max_prod = prod
-			print max_prod, " encontrado vertical comenzando en (i,j):", (i,j)
-
-	print max_prod
+	busqueda_diagonal(matriz_invertida)
+	print "Busqueda diagonal(der->izq): " + str(max_prod), max_list
 
 if __name__ == '__main__':
-	import operator
-	import functools
 	import itertools
+	import functools
+	import operator
+	from collections import deque	#http://stackoverflow.com/q/4528740/1603080
 	main()
