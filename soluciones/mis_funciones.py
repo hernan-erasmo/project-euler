@@ -110,3 +110,18 @@ def dickson_triples(r):	#http://en.wikipedia.org/wiki/Formulas_for_generating_Py
 		triples.append((x,y,z))
 
 	return triples
+
+def es_triangular(n):
+	"""Un numero n es triangular si es el resultado de la suma de numeros naturales
+	consecutivos contando a partir de 1"""
+	acumulado = 0
+	for i in xrange(n+1):
+		acumulado += i
+		if acumulado == n:
+			return True
+
+	return False
+
+def triangular_nro(n):
+	"""Retorna el n-esimo numero de la secuencia de numeros triangulares"""
+	return (n*(n+1))/2

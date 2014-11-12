@@ -12,6 +12,23 @@ class TestMisFunciones(unittest.TestCase):
 	def test_es_potencia(self):
 		self.assertTrue(mf.es_potencia(8))
 
+	def test_es_palindromo(self):
+		self.assertTrue(mf.es_palindromo(1498941))
+		self.assertTrue(mf.es_palindromo(2))
+		self.assertTrue(mf.es_palindromo(-29892))
+		self.assertFalse(mf.es_palindromo(9283539))
+
+	def test_es_triangular(self):
+		self.assertTrue(mf.es_triangular(28))
+		self.assertTrue(mf.es_triangular(1))
+		self.assertFalse(mf.es_triangular(514))
+		self.assertFalse(mf.es_triangular(-1))
+
+	def test_triangular_nro(self):
+		self.assertEquals(mf.triangular_nro(7),28)
+		self.assertEquals(mf.triangular_nro(6),21)
+		self.assertEquals(mf.triangular_nro(1200),720600)
+
 	def test_son_congruentes_modulo(self):
 		self.assertTrue(mf.son_congruentes_modulo(38,14,12))
 		self.assertTrue(mf.son_congruentes_modulo(-10,40,25))
@@ -39,12 +56,6 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(mf.buscar_factor_impar(10000),625)
 		self.assertEquals(mf.buscar_factor_impar(49),49)
 		self.assertEquals(mf.buscar_factor_impar(199543),199543)
-
-	def test_es_palindromo(self):
-		self.assertTrue(mf.es_palindromo(1498941))
-		self.assertTrue(mf.es_palindromo(2))
-		self.assertTrue(mf.es_palindromo(-29892))
-		self.assertFalse(mf.es_palindromo(9283539))
 
 	def test_factor_pairs(self):
 		self.assertEquals(mf.factor_pairs(18),[(1,18),(2,9),(3,6)])
