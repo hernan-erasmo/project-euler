@@ -66,5 +66,11 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(mf.dickson_triples(-4), [])
 		self.assertEquals(mf.dickson_triples(6), [(7,24,25), (8,15,17), (9,12,15)])
 
+	def test_collatz_sequence(self):
+		self.assertEquals([x for x in mf.collatz_sequence(13)], [13, 40, 20, 10, 5, 16, 8, 4, 2, 1])
+		self.assertEquals([x for x in mf.collatz_sequence(3)], [3, 10, 5, 16, 8, 4, 2, 1])
+		self.assertEquals([x for x in mf.collatz_sequence(1)], [1])
+		self.assertEquals([x for x in mf.collatz_sequence(-2)], [])
+
 if __name__ == '__main__':
 	unittest.main()

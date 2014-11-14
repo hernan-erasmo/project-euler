@@ -125,3 +125,16 @@ def es_triangular(n):
 def triangular_nro(n):
 	"""Retorna el n-esimo numero de la secuencia de numeros triangulares"""
 	return (n*(n+1))/2
+
+def collatz_sequence(start):
+	if start >= 1:
+		yield start
+
+	n = start
+	while n > 1:
+		if n % 2 == 0:
+			n = n / 2
+		else:
+			n = 3*n + 1
+		
+		yield n
