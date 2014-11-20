@@ -72,5 +72,16 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals([x for x in mf.collatz_sequence(1)], [1])
 		self.assertEquals([x for x in mf.collatz_sequence(-2)], [])
 
+	def test_pollard_rho_factor(self):
+		self.assertEquals(mf.pollard_rho_factor(25),5)
+		self.assertEquals(mf.pollard_rho_factor(11),11)
+		self.assertEquals(mf.pollard_rho_factor(984196561),19)
+		self.assertEquals(mf.pollard_rho_factor(76819),76819)
+
+	def test_factores_primos_de_n(self):
+		self.assertEquals(sorted(mf.factores_primos_de(10)),[2,5])
+		self.assertEquals(sorted(mf.factores_primos_de(625)),[5,5,5,5])
+		self.assertEquals(sorted(mf.factores_primos_de(95409198)),[2,3,3,3,23,76819])
+
 if __name__ == '__main__':
 	unittest.main()

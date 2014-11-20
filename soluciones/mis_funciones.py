@@ -8,6 +8,7 @@ en caso de que la aclare) para describir al algoritmo en cuestion"""
 
 import math
 import itertools
+from random import randrange
 
 def n_esmultiplode_m(n,m):
 	return n % m == 0
@@ -138,3 +139,53 @@ def collatz_sequence(start):
 			n = 3*n + 1
 		
 		yield n
+
+def generadora_aleatorios(x,n):
+	return (x**2 + randrange(x+n) + 1) % n
+
+def pollard_rho_factor(n):
+	"""Retorna un factor primo de n utilizando el algoritmo Pollard rho.
+	Las variables estan tomadas de acuerdo a la pagina de wikipedia del algoritmo
+	http://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Algorithm"""
+	
+	if es_primo(n):
+		return n
+
+	semillero = itertools.count(2)
+	x = y = semillero.next()
+	d = 1
+	encontrado = False
+
+	while not encontrado:
+		encontrado = True
+
+		while d == 1:
+			x = generadora_aleatorios(x,n)
+			y = generadora_aleatorios(generadora_aleatorios(y,n),n)
+			d = gdc(abs(x - y), n)
+
+		if d == n:
+			encontrado = False
+			x = y = semillero.next()
+			print x,y
+			d = 1
+
+	return d
+
+def factores_primos_de(n):
+	"""Utiliza pollard_rho_factor para retornar una lista de factores primos de n"""
+
+	factor1 = pollard_rho_factor(n)
+	factor2 = n / factor1
+	factores = [factor1,factor2]
+	respuesta = []
+
+	while factores != []:
+		factor = factores.pop()
+		factor_mas_chico = pollard_rho_factor(factor)
+		if factor == factor_mas_chico:
+			respuesta.append(factor)
+		else:
+			factores.extend([factor_mas_chico, factor/factor_mas_chico])
+
+	return respuesta
