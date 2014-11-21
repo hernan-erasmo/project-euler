@@ -8,6 +8,8 @@ en caso de que la aclare) para describir al algoritmo en cuestion"""
 
 import math
 import itertools
+import operator
+import functools
 from random import randrange
 
 def n_esmultiplode_m(n,m):
@@ -189,3 +191,14 @@ def factores_primos_de(n):
 			factores.extend([factor_mas_chico, factor/factor_mas_chico])
 
 	return respuesta
+
+def factores_de(n):
+	"""Genera todos los factores de n"""
+	if es_primo(n):
+		return factores_primos_de(n)
+
+	primos = factores_primos_de(n)
+	generador = itertools.chain.from_iterable(itertools.combinations(primos, r) for r in range(len(primos) + 1))
+	factores_repetidos = [functools.reduce(operator.mul, item, 1) for item in generador]
+	
+	return sorted(set(factores_repetidos))
