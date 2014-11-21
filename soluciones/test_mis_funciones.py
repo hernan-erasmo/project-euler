@@ -83,7 +83,7 @@ class TestMisFunciones(unittest.TestCase):
 		self.assertEquals(sorted(mf.factores_primos_de(625)),[5,5,5,5])
 		self.assertEquals(sorted(mf.factores_primos_de(95409198)),[2,3,3,3,23,76819])
 
-	def test_factores_de_n(self):
+	def test_factores_de(self):
 		self.assertEquals(mf.factores_de(10),[1,2,5,10])
 		self.assertEquals(mf.factores_de(60),[1,2,3,4,5,6,10,12,15,20,30,60])
 		self.assertEquals(mf.factores_de(19),[1,19])
