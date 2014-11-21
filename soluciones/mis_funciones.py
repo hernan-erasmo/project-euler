@@ -169,7 +169,6 @@ def pollard_rho_factor(n):
 		if d == n:
 			encontrado = False
 			x = y = semillero.next()
-			print x,y
 			d = 1
 
 	return d
