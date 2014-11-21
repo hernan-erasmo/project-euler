@@ -197,6 +197,7 @@ def factores_de(n):
 		return factores_primos_de(n)
 
 	primos = factores_primos_de(n)
+	#http://stackoverflow.com/a/5898031/1603080 - Mirar los comentarios de esa respuesta
 	generador = itertools.chain.from_iterable(itertools.combinations(primos, r) for r in range(len(primos) + 1))
 	factores_repetidos = [functools.reduce(operator.mul, item, 1) for item in generador]
 	
