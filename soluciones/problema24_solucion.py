@@ -19,11 +19,16 @@ Este programa es simplemente una implementacion del calculo a mano de la millone
 permutacion lexicografica utilizando estos datos de frecuencia.
 """
 frecs_cambio = [362880,40320,5040,720,120,24,6,2,1,1]
-cadena = '0123456789'
+cadena_ejercicio = '0123456789'
 
 def main():
-	enesima_permutacion = calcular_enesima_permutacion(120)	#centesimo vigesima permutacion
-	print factorizacion_por_frecuencias(1000000)
+	frecuencias = factorizacion_por_frecuencias(1000000)
+	"""
+	c = cadena
+	For f in frecuencias:
+			c = incrementar_posicion_n_lugares(c,f[a],f[b])
+	"""
+	print frecuencias
 
 def factorizacion_por_frecuencias(n):
 	return [x for x in generar_factorizacion(n)]
@@ -38,8 +43,20 @@ def generar_factorizacion(n):
 				yield (frec, multiplicador)
 				break
 	
-def calcular_enesima_permutacion(n):
-	return 25
+def incrementar_posicion_n_lugares(cadena,pos,cant):
+	"""Incrementa la posicion 'pos' de la 'cadena' una cantidad de lugares 'cant' y 
+	retorna la cadena resultado. Hay que ordenar los lugares posteriores al cambio de
+	menor a mayor:
+	Ejemplo:
+			asdf = incrementar_posicion_n_lugares('0123',1,2)
+			>>>> asdf
+			>>>> '0312'
+
+			asdf = incrementar_posicion_n_lugares('0123456',2,3)
+			>>>> asdf
+			>>>> '0152346'
+	"""
+
 
 if __name__ == '__main__':
 	import itertools
